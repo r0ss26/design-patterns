@@ -52,6 +52,7 @@ namespace DesignPatterns
 
             public void Fly()
             {
+                drone.SpinRotors();
                 drone.TakeOff();
             }
         }
@@ -71,13 +72,13 @@ namespace DesignPatterns
             }
         }
 
-        static void Main(string[] args)
-        {
-            IDrone drone = new SuperDrone();
-            IDuck droneAdapter = new DroneAdapter(drone);
-            DuckSimulator simulation = new DuckSimulator(droneAdapter);
-            simulation.Run();
-        }
+        //static void Main(string[] args)
+        //{
+        //    IDrone drone = new SuperDrone();
+        //    IDuck droneAdapter = new DroneAdapter(drone);
+        //    DuckSimulator simulation = new DuckSimulator(droneAdapter);
+        //    simulation.Run();
+        //}
 
     }
 }

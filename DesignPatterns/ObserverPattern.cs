@@ -15,20 +15,34 @@ namespace DesignPatterns
         }
         public interface IObserver
         {
-            void Update();
+            void Update(int temparature, int windSpeed, int pressure);
         }
         public class WeatherStation : ISubject
         {
             private int temperature;
-            private int windSpeed;
+            public int WindSpeed { get; set;  }
             private int pressure;
             private List<IObserver> observers;
             public WeatherStation(int temperature, int windSpeed, int pressure)
             {
                 this.temperature = temperature;
-                this.windSpeed = windSpeed;
+                this.WindSpeed = windSpeed;
                 this.pressure = pressure;
+                this.observers = new List<IObserver>();
             }
+
+            public int Temperature
+            {
+                get
+                {
+                    return this.temperature;
+                }
+                set
+                {
+                    this.temperature = value;
+                }
+            }
+
 
             public void RegisterObserver(IObserver observer)
             {
@@ -44,48 +58,50 @@ namespace DesignPatterns
             {
                 foreach (IObserver observer in this.observers)
                 {
-                    observer.Update(this.windSpeed, this.temperature, this.pressure);
+                    observer.Update(this.temperature, this.WindSpeed, this.pressure);
                 }
             }
         }
 
         public class UserInterface : IObserver
         {
-            void Display()
+            public void Update(int t, int w, int p)
             {
-                Console.WriteLine("");
-            }
-
-            public void Update()
-            {
-
+                Console.WriteLine("User Interface - Temparature (" + t + ") Windspeed (" + w + ") Pressure (" + p + ")");
             }
         }
 
         public class Logger : IObserver
         {
-            void Log()
+            public void Update(int t, int w, int p)
             {
-                Console.WriteLine("");
-            }
-
-            public void Update()
-            {
-
+                Console.WriteLine("Log - Temparature (" + t + ") Windspeed (" + w + ") Pressure (" + p + ")");
             }
         }
 
         public class AlertSystem : IObserver
         {
-            void Alert()
+            public void Update(int t, int w, int p)
             {
-                Console.WriteLine("");
+                Console.WriteLine("Alert System - Temparature (" + t + ") Windspeed (" + w + ") Pressure (" + p + ")");
             }
-
-            public void Update()
-            {
-
-            }
+        }
+        static void Main(String[] args)
+        {
+            var weatherStation = new WeatherStation(1, 2, 3);
+            var ui = new UserInterface();
+            var log = new Logger();
+            var alert = new AlertSystem();
+            weatherStation.RegisterObserver(ui);
+            weatherStation.RegisterObserver(log);
+            weatherStation.RegisterObserver(alert);
+            weatherStation.Temperature = 100;
+            weatherStation.NotifyObservers();
+            weatherStation.Temperature = 50;
+            weatherStation.NotifyObservers();
+            weatherStation.WindSpeed = 60;
+            weatherStation.NotifyObservers();
+            Console.ReadLine();
         }
     }
 }

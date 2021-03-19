@@ -86,22 +86,22 @@ namespace DesignPatterns
                 Console.WriteLine("Alert System - Temparature (" + t + ") Windspeed (" + w + ") Pressure (" + p + ")");
             }
         }
-        static void Main(String[] args)
-        {
-            var weatherStation = new WeatherStation(1, 2, 3);
-            var ui = new UserInterface();
-            var log = new Logger();
-            var alert = new AlertSystem();
-            weatherStation.RegisterObserver(ui);
-            weatherStation.RegisterObserver(log);
-            weatherStation.RegisterObserver(alert);
-            weatherStation.Temperature = 100;
-            weatherStation.NotifyObservers();
-            weatherStation.Temperature = 50;
-            weatherStation.NotifyObservers();
-            weatherStation.WindSpeed = 60;
-            weatherStation.NotifyObservers();
-            Console.ReadLine();
-        }
+        //static void Main(String[] args)
+        //{
+        //    var weatherStation = new WeatherStation(1, 2, 3);
+        //    var ui = new UserInterface();
+        //    var log = new Logger();
+        //    var alert = new AlertSystem();
+        //    weatherStation.RegisterObserver(ui);
+        //    weatherStation.RegisterObserver(log);
+        //    weatherStation.RegisterObserver(alert);
+        //    weatherStation.Temperature = 100;
+        //    weatherStation.NotifyObservers();
+        //    weatherStation.Temperature = 50;
+        //    weatherStation.NotifyObservers();
+        //    weatherStation.WindSpeed = 60;
+        //    weatherStation.NotifyObservers();
+        //    Console.ReadLine();
+        //}
     }
 }
